@@ -62,6 +62,7 @@ class Network(nn.Module):
         self.fc1 = nn.Linear(24*10*10, 10)
 
     def forward(self, input):
+        input=input.to(device)
         output = F.relu(self.bn1(self.conv1(input))).to(device)     
         output = F.relu(self.bn2(self.conv2(output))).to(device) 
         output = self.pool(output)                        
@@ -103,6 +104,8 @@ def testModelAccuracy():
             # the label with the highest energy will be our prediction
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
+            predicted.to("cpu")
+            labels.to("cpu")
             accuracy += (predicted == labels).sum().item()
     
     # compute the accuracy over all test images
