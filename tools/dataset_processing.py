@@ -12,7 +12,7 @@ if not os.path.exists(target_path):
     os.makedirs(target_path)
 
 school_tags = ["zxb","nm","sy","tsg","mhb","sjz","tyht"]
-other_tags = ["all_souls","ashmolean","balliol","bodleian","christ_chruch","cornmarket","hertford","jesus","keble","magdalen","new","oriel","oxford","pitt_rivers","radcliffe_camera","trinity","worcester"]
+other_tags = ["all_souls","ashmolean","balliol","bodleian","christ_church","cornmarket","hertford","jesus","keble","magdalen","new","oriel","oxford","pitt_rivers","radcliffe_camera","trinity","worcester"]
 all_tags = school_tags + other_tags
 counts=[0 for i in range(len(all_tags))]
 def genID():
@@ -21,6 +21,7 @@ def genID():
     return ''.join(random.sample(string.digits, 10))
 
 
+cot=0
 for cate in cates:
     cate_path=os.path.join(dataset_path, cate)
     target_cate_path=os.path.join(target_path, cate)
@@ -40,12 +41,14 @@ for cate in cates:
                 continue
 
             #filtering file start with tag use regex
-            if re.match('{}(-|_).*'.format(tag), file, re.IGNORECASE):
+            if re.match('{}.*'.format(tag), file, re.IGNORECASE):
+                file=file.lower()
                 changed_file = '{}-{}.jpg'.format(tag,genID())
                 target_file_path = os.path.join(target_cate_path, changed_file)
                 os.system("copy /b \"{}\" \"{}\"".format(file_path, target_file_path))
                 count += 1
-                #print("copy /b \"{}\" \"{}\"".format(file_path, target_file_path))
+                cot +=1
+                print("{} files copied".format(cot))
 
         counts[c]+=(count)
 
