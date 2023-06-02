@@ -7,7 +7,7 @@
 import os
 from PIL import Image
 
-scale = 32
+scale = 1024
 
 root="C:\\Left\\Workspace\\BJTU-CVFundamental\\"
 dataset_path = os.path.join(root, "data\\bjtu-dataset-mixed\\Cleaned_Dataset\\")
